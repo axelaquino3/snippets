@@ -147,7 +147,7 @@ int main()
       ([&jsonDocument](int id)
        {
          // Initializes an iterator itr at the beginning of the JSON array in jsonDocument.
-         rapidjson::Value::ValueIterator itr = jsonDocument.Begin();
+         rapidjson::Value::ConstValueIterator itr = jsonDocument.Begin();
 
          // Initializes an iterator itr at the beginning of the JSON array in jsonDocument.
          while (itr != jsonDocument.End()){
@@ -164,7 +164,7 @@ int main()
             std::string encryptedCode = (*itr)["code"].GetString();
             std::string decryptedCode = decrypt(encryptedCode, key, iv);
 
-            (*itr)["code"].SetString(decryptedCode.c_str(), decryptedCode.size());
+            // (*itr)["code"].SetString(decryptedCode.c_str(), decryptedCode.size());
 
             // Creates a rapidjson::StringBuffer to hold the JSON data.
             rapidjson::StringBuffer buffer;
@@ -172,7 +172,7 @@ int main()
             rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 
             // Uses itr->Accept(writer) to write the current object to the buffer.
-            jsonDocument.Accept(writer);
+            itr->Accept(writer);
 
             // Constructs a response containing the JSON data for the specific ID.
             return crow::response(buffer.GetString());
