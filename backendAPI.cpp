@@ -50,8 +50,43 @@ int main() {
     }
 
   // ROUTES!!!
+ 
+ CROW_ROUTE(app, "/snippets/<int>")
+    .methods("GET"_method)
+    ([&snippets](const crow::request& req, crow::response& res, int snippetId){
+        // Handle GET request to retrieve a specific snippet by ID
+        auto it = std::find_if(snippets.begin(), snippets.end(),
+                               [snippetId](const Snippet& snippet) {
+                                   return snippet.id == snippetId;
+                               });
 
-  CROW_ROUTE(app, "/snippets")
+        if (it != snippets.end()) {
+            rapidjson::StringBuffer s;
+            rapidjson::Writer<rapidjson::StringBuffer> writer(s);
+
+            // Write the specific snippet to the response
+            writer.StartObject();
+            writer.Key("id");
+            writer.Int(it->id);
+            writer.Key("language");
+            writer.String(it->language.c_str());
+            writer.Key("code");
+            writer.String(it->code.c_str());
+            writer.EndObject();
+
+            // Set the response body
+            res.body = std::string(s.GetString());
+            res.end();
+        } else {
+            // Handle snippet not found (return 404 response)
+            res.code = 404;
+            res.body = "Snippet not found";
+            res.end();
+        }
+    });
+
+  
+   CROW_ROUTE(app, "/snippets")
     .methods("GET"_method)
     ([&](const crow::request& req, crow::response& res) -> void{
         // Handle GET request to retrieve all snippets
@@ -77,38 +112,6 @@ int main() {
         res.end();
     });
 
-  
- CROW_ROUTE(app, "/snippets/<int>")
-    .methods("GET"_method)
-    ([&](const crow::request& req, crow::response& res, int snippetId){
-        // Handle GET request to retrieve a specific snippet by ID
-        auto it = std::find_if(snippets.begin(), snippets.end(),
-                               [snippetId](const Snippet& snippet) {
-                                   return snippet.id == 4;
-                               });
-
-        if (it != snippets.end()) {
-            rapidjson::StringBuffer s;
-            rapidjson::Writer<rapidjson::StringBuffer> writer(s);
-
-            // Write the specific snippet to the response
-            writer.StartObject();
-            writer.Key("id");
-            writer.Int(it->id);
-            writer.Key("language");
-            writer.String(it->language.c_str());
-            writer.Key("code");
-            writer.String(it->code.c_str());
-            writer.EndObject();
-
-            // Set the response body
-            res.body = std::string(s.GetString());
-        } else {
-            // Handle snippet not found (return 404 response)
-            res.code = 404;
-            res.body = "Snippet not found";
-        }
-    });
 
 
   app.port(8080).multithreaded().run();
