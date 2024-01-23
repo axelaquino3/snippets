@@ -38,50 +38,5 @@
         "id": 8,
         "language": "Java",
         "code": "public class Rectangle {\n    private int width;\n    private int height;\n\n    public Rectangle(int width, int height) {\n        this.width = width;\n        this.height = height;\n    }\n\n    public int getArea() {\n        return width * height;\n    }\n}"
-    },
-    {
-        "id": 9,
-        "language": "test",
-        "code": "test"
-    },
-    {
-        "id": 10,
-        "language": "test",
-        "code": "test"
-    },
-    {
-        "id": 11,
-        "language": "something",
-        "code": "something else"
-    },
-    {
-        "id": 12,
-        "language": "more about something",
-        "code": "��y�T(�[-����`\u0006\u00058c�\t�5\u0011�\t�\u001A�r\u0011\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
-    },
-    {
-        "id": 13,
-        "language": "more about something",
-        "code": "Ca\u001D7�:�\u0013��a�U��E�x���U\u0018t\f\u0019�Hj�\r�"
-    },
-    {
-        "id": 14,
-        "language": "more about something",
-        "code": "�/���0\u0016�g�ޱ�M\u001FՉ\u001AԲ�\u0018�/�\\��W'�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
-    },
-    {
-        "id": 15,
-        "language": "maybe even more about something",
-        "code": "�\"O� ��Z\u0011�\b\u0006�\u0014�\u0010%�8Wkw�[��ěH\u0019C\u0016C������6\n�X/�:���nW��\u0012X����\bh��"
-    },
-    {
-        "id": 16,
-        "language": "maybe even more about something2",
-        "code": "��ާ��\u0001�J�[O�e�jr�IJ}�\u000F�RbOz���ї���Q2==��\u001D�\u00181!�c��1�\u001B��V|��p4"
-    },
-    {
-        "id": 17,
-        "language": "hello sir",
-        "code": "v9���.\u000FA��\u00188�\u001Cd\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
     }
 ]
