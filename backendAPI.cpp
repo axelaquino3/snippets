@@ -112,6 +112,32 @@ int main() {
         res.end();
     });
 
+  CROW_ROUTE(app, "/snippets")
+    .methods("POST"_method)
+    ([&snippets](const crow::request& req, crow::response& res) {
+        // Handle the POST request to add a new snippet
+        crow::json::rvalue jsonPayload = crow::json::load(req.body);
+        if (!jsonPayload) {
+            res.code = 400; // Bad Request
+            res.body = "Invalid JSON payload";
+            res.end();
+            return;
+        }
+
+        // Extract data from jsonPayload
+        int newId = snippets.size() + 1;
+        std::string language = jsonPayload["language"].s();
+        std::string code = jsonPayload["code"].s();
+
+        // Add the new snippet to the snippets vector
+        snippets.push_back({newId, language, code});
+
+        // Set response status and body
+        res.code = 201; // Created
+        res.body = "Snippet created successfully";
+        res.end();
+    });
+
 
 
   app.port(8080).multithreaded().run();
